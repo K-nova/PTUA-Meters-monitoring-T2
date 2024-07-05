@@ -1,17 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import * as ReactDOMClient from "react-dom/client";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+import "./main/css/style.css"
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+import { Header } from "./main/js/Header";
+import { MainFrame } from "./main/js/MainFrame.js";
+import {SlideShow} from './slideShow/js/slideShow.js'
+
+let root=ReactDOMClient.createRoot(document.querySelector('#root'));
+
+let RootContent=()=>{
+  return(
+    <div>
+      <Header />
+      <MainFrame  MainFrameContent={SlideShow} />
+    </div>
+    
+
+  )
+}
+
+
+root.render(<RootContent />)
