@@ -1,4 +1,4 @@
-export class StorageCtrl{
+export default class StorageCtrl{
     static #SESSION=true;//режим хранения данных в сессии
     static #PROJECT_ID='PTUA_MeterMon_t2';
     static #DEFAULT_PARAMETERS={

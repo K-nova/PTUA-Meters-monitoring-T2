@@ -5,21 +5,24 @@ import * as ReactDOMClient from "react-dom/client";
 import "./main/css/style.css"
 
 import { Header } from "./main/js/Header";
-import { MainFrame } from "./main/js/MainFrame.js";
-import {SlideShow} from './slideShow/js/slideShow.js'
+import { MainFrame } from "./main/js/MainFrame";
+import {SlideShow} from './slideShow/js/slideShow'
 
-let root=ReactDOMClient.createRoot(document.querySelector('#root'));
+let root= document.querySelector('#root')
+root.style.height='100%'
+
+let DOMroot=ReactDOMClient.createRoot(root);
 
 let RootContent=()=>{
   return(
-    <div>
+    <>
       <Header />
       <MainFrame  MainFrameContent={SlideShow} />
-    </div>
+    </>
     
 
   )
 }
 
 
-root.render(<RootContent />)
+DOMroot.render(<RootContent />)

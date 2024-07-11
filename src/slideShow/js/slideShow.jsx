@@ -2,9 +2,9 @@ import React from "react"
 
 import '../css/slideShow.css'
 
-import SlideShowItem from './slideShowItem.js'
-import {StorageCtrl} from "../../main/js/sys/StorageCtrl.js";
-import ChartsMain from '../../charts/js/chartsMain.js'
+import SlideShowItem from './slideShowItem'
+import StorageCtrl from "../../main/js/sys/StorageCtrl.js";
+import ChartsMain from '../../charts/js/chartsMain'
 
 import img1 from '../data/Siemens_VAI_03_fertig_Retouch_270514.jpg'
 import img2 from '../data/Imagecampaign_Digitalization_PT_normal_RGB_casual_man.jpg'
