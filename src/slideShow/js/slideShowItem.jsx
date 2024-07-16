@@ -1,4 +1,5 @@
 import React from "react"
+import { Link} from "react-router-dom";
 
 import '../css/slideShow.css'
 
@@ -10,7 +11,7 @@ class SlideShowItem extends React.Component{
 
     render (){
         return(
-            <div className={this.props.active ? 'slideshow-item active': 'slideshow-item'}>
+            <div className={'slideshow-item active'}>
                 <img src={this.props.img} alt="" />
                 <div className="slideshow-item-text">
                     <h5>{this.props.topic}</h5>
@@ -24,10 +25,10 @@ class SlideShowItem extends React.Component{
                         ))}
                     </p>
                     
-                    <button className="slideshow-item-button" onClick={this.props.nextButtonOnClickFunc}>далее</button>
+                    <Link to={this.props.nextButtonLink} className="slideshow-item-button">далее</Link>
+                    
+                    <Link to={this.props.startButtonLink} className={this.props.startButtonActive ? 'slideshow-item-buttonF active': 'slideshow-item-buttonF'}>старт</Link>
 
-                    <button className={this.props.startButtonActive ? 'slideshow-item-buttonF active': 'slideshow-item-buttonF'}
-                    onClick={this.props.startButtonOnClickFunc}>старт</button>
 
                 </div>
             </div>

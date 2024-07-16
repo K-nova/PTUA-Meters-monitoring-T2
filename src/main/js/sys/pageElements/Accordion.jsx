@@ -8,6 +8,7 @@ let DefaultContent=()=>{
     )
 }
 
+
 export default class Accordion extends React.Component{
     //элементы
     ctrlElement
@@ -23,7 +24,8 @@ export default class Accordion extends React.Component{
         labelStyle:{},
         expandIconClass: "accordion_expandIcon",
         expandIconStyle:{},
-        Content: DefaultContent
+        Content: DefaultContent,
+        labelOnClick: ()=>{}
     }
 
     constructor(props) {
@@ -32,6 +34,7 @@ export default class Accordion extends React.Component{
         this.ctrlElement=React.createRef()
         this.label=React.createRef()
         this.contentContainer=React.createRef()
+
     }
 
 
@@ -47,18 +50,20 @@ export default class Accordion extends React.Component{
                     <input ref={this.ctrlElement} type="checkbox" className="accordion_ctrlElement" id={this.checkBoxId}/>   
                  
                     {!labelAsInput ?(
-                        <label htmlFor={this.checkBoxId} className={labelClass} style={labelStyle} onClick={this.#expandCtrl()}>{text}</label>
+                        /*обычный текст */
+                        <label htmlFor={this.checkBoxId} className={labelClass} style={labelStyle} onClick={()=>this.#OnClickFunc()}>{text}</label>
                     ):(
-                        <input ref={this.label} type="text" className={labelClass} style={labelStyle} readOnly value={text} onClick={this.#expandCtrl()}/>
+                        /*изменяемый текст */
+                        <input ref={this.label} type="text" onClick={()=>this.#OnClickFunc(false)} className={labelClass} style={labelStyle} readOnly value={text} />
                     ) }
 
-                    <div className={expandIconClass} style={expandIconStyle} onClick={this.#expandCtrl(true)}></div>                 
+                    <div className={expandIconClass} style={expandIconStyle} onClick={()=>this.#OnClickFunc(true)}></div>                 
 
                     <div></div>
                     
                 </div>
 
-                <div ref={this.contentContainer} className="accordion_content">
+                <div ref={this.contentContainer}  className="accordion_content">
                     <Content />
                 </div>
             </div>
@@ -83,7 +88,8 @@ export default class Accordion extends React.Component{
         }
     }
 
-    #expandCtrl=(byExpandIcon=false)=>()=>{
+    #OnClickFunc=(byExpandIcon=false)=>{
+        //контроль раскрытия
         if(!this.props.labelAsInput ||(this.props.labelAsInput && !this.onEdit)){
             if(!this.ctrlElement.current.checked){
                 this.contentContainer.current.style.display='block';
@@ -97,5 +103,7 @@ export default class Accordion extends React.Component{
                 }
             }
         }
+
+        if(!byExpandIcon){this.props.labelOnClick()}
     }
 }

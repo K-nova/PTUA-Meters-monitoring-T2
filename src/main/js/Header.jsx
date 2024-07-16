@@ -1,4 +1,5 @@
 import React from "react"
+import { Link} from "react-router-dom";
 
 import '../css/header.css'
 
@@ -8,9 +9,9 @@ export class Header extends React.Component{
     render (){
       return(
         <div className="header">
-          <a className="header-logo" href="index.html">
+          <Link className="header-logo" to="/intro1">
             <img className="header-logo-image" src={headerLogo} alt="HeaderLogoImage"/>
-          </a>
+          </Link>
           
         </div>
       )
