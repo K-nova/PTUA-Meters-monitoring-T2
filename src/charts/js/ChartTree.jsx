@@ -1,10 +1,9 @@
 import React from "react"
-import {useNavigate, Link } from "react-router-dom"
 
-import Accordion from '../../main/js/sys/pageElements/Accordion'
 import TreeComponent from './TreeComponent'
 
 import ServerDataExchange from '../../main/js/sys/ServerDataExchange/ServerDataExchange.js'
+import StorageCtrl from '../../main/js/sys/StorageCtrl'
 
 import '../css/style_tree.css'
 
@@ -54,7 +53,8 @@ export default  class ChartsTree extends React.Component{
         this.setState({treeData: treeData})
         this.setState({loading: false})
 
-        
+        //сохраняем данные дерева в ТОЛЬКО локальной сессии
+        StorageCtrl.setItem('treeData',treeData,{isJSON:true, storageTypeForcing:true, session:true})
     }
 
     
@@ -86,7 +86,7 @@ export default  class ChartsTree extends React.Component{
                             text={dataItem.name} 
                             labelStyle={{paddingLeft: `${paddingLeft-5}px`}}
                             expandIconStyle={{left:`${paddingLeft-15}px`}}
-                            link={'Overview-'+dataItem.name}
+                            link={`Overview/${dataItem.id}`}
                             Content={()=>{return(
                             <>
                                 <CreateTree treeData={nextTreeData} treeInputIdSuf={nextTreeInputIdSuf} paddingLeft={nextLevPaddingLeft}/>
@@ -95,14 +95,14 @@ export default  class ChartsTree extends React.Component{
                         />
                     ):(
                         /*отрисоквка вкладки счетчика */
-                        <input 
-                            value={dataItem.name}
-                            className='tree-title'
-                            readOnly
-                            style={{
-                                paddingLeft: `${paddingLeft-15}px`
-                            }}
+                        <TreeComponent  
+                            text={dataItem.name} 
+                            labelStyle={{paddingLeft: `${paddingLeft-5}px`}}
+                            expandIconStyle={{left:`${paddingLeft-15}px`}}
+                            link={`Meter/${dataItem.id}`}
+                            noContent='true'
                         />
+
                     )}
                 </div>
             )  

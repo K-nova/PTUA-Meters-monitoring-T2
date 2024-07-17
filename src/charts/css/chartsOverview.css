@@ -19,14 +19,16 @@
     position: absolute; /*для позиционирования относительно Overview в нем нужно поставить position: relative*/
     top: 0px;   
     left: 0px; 
-    background: transparent;
-    background-image: var(--ActivationColor);
-    opacity: 0.8;
+    background-color: var(--ActivationColor);
+    z-index: 1;
 }
 
 .Overview-figure{
     margin: 0%;
+    position: relative; /*необходим для абсолютного позиционирования и масштабировани след. элемента*/
+    z-index: 2;
 }
+
 
 .Overview-Iframe, .Overview-picture{
     display: block;

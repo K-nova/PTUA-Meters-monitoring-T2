@@ -5,7 +5,7 @@ import {defSimTreeData} from "./defSimTreeData.js";
 
 //Singleton класс
 export default class ServDataExchangeSim{
-    #TREE_DATA_SORAGE_NAME='treeDataLocStorageName';
+    #TREE_DATA_SORAGE_NAME='SimTreeDataLocStorageName';
     #NO_CHANGES=ServerDataExchange.NO_CHANGES;
     #ERR_NAMEALREADYEXIST=ServerDataExchange.ERR_NAMEALREADYEXIST;
     #TIME_DELAY=500;

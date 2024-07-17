@@ -123,14 +123,19 @@ display: inline;
   }
 
   
-  .accordion_ctrlElement:checked ~ .tree-expandIcon{
+  .tree-expandIcon_opened{
+    display: block;
+
     border-style: solid;
     border-width: 5px 0 5px 8.7px;
     border-color: transparent transparent transparent var(--BackColor);
     transform: rotate(90deg);
   
-    top:.5em;
+    position: absolute;
+    top:.7em;
+    left: 5px;
   
+    cursor:copy;
   }
 
 

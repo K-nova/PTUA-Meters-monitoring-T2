@@ -4,10 +4,10 @@ import { Routes, Route} from "react-router-dom";
 import '../css/charts-main.css'
 
 import ChartsTree from '../js/ChartTree'
-import ChartOverviewButton from './ChartOverviewButton'
+import {ChartFolderOverview} from './ChartFolderOverview'
+import Chart from './Chart/Chart'
+import NotFoundPage from "../../main/js/NotFoundPage";
 
-
-let ChartsTreeMemo=React.memo(ChartsTree)
 
 let ChartsMain = ()=>{
 
@@ -15,7 +15,7 @@ let ChartsMain = ()=>{
         <div className="container">
             {/*область дерева */}
             <div className="split left">
-                <ChartsTreeMemo />
+                <ChartsTree />
                 
             </div>
 
@@ -34,7 +34,9 @@ let ChartsMain = ()=>{
                     </div>
 
                     <Routes>
-                        <Route path="Overview" element={<ChartOverviewButton />}/>
+                        <Route path="Overview/:folderId" element={<ChartFolderOverview />}/>
+                        <Route path="Meter/:meterId" element={<Chart />}/>
+                        <Route path="*" element={<NotFoundPage />}/>
                     </Routes>
                 </div>
             </div>

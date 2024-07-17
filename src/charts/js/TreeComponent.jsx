@@ -18,6 +18,7 @@ export default class Accordion extends React.Component{
     static defaultProps={
         labelStyle:{},
         expandIconStyle:{},
+        noContent: false,
         Content: DefaultContent,
     }
 
@@ -32,6 +33,7 @@ export default class Accordion extends React.Component{
         this.state={
             onEdit: false,
             contentIsVisible: false,
+            expandIconClass: 'tree-expandIcon'
         }
 
     }
@@ -45,38 +47,48 @@ export default class Accordion extends React.Component{
             <div className= "accordion_item" id={this.props.id} >
                 <div className="accordion_header"> 
                  
-                {!this.state.onEdit ?(
-                    <Link to={this.props.link} className="tree-title" onClick={()=>this.#OnClickFunc()}>{text}</Link>
+                    {!this.state.onEdit ?(
+                        <Link to={this.props.link} className="tree-title" style={labelStyle} onClick={()=>this.#OnClickFunc()}>{text}</Link>
+                    ):(
+                        /*изменяемый текст */
+                        <input ref={this.label} type="text" onClick={()=>this.#OnClickFunc()} className="tree-title" style={labelStyle} readOnly value={text} />
+                    )}
+
+                    {!this.props.noContent ?(
+                        <div className={this.state.expandIconClass} style={expandIconStyle} onClick={()=>this.#OnClickFunc()}></div>  
+                    ):(
+                        <></>
+                    )}    
+                                     
+                </div>
+
+                {!this.props.noContent ?(
+                    <div ref={this.contentContainer}  className="accordion_content">
+                        <Content />
+                    </div>
                 ):(
-                    /*изменяемый текст */
-                    <input ref={this.label} type="text" onClick={()=>this.#OnClickFunc()} className="tree-title" style={labelStyle} readOnly value={text} />
+                    <></>
                 )}
-                    
-
-
-                    <div className='tree-expandIcon' style={expandIconStyle} onClick={()=>this.#OnClickFunc()}></div>                 
-
-                    
-                    
-                </div>
-
-                <div ref={this.contentContainer}  className="accordion_content">
-                    <Content />
-                </div>
+                
             </div>
         )
     }
 
     #OnClickFunc=()=>{
         //контроль раскрытия
-        if(!this.state.onEdit){
-            if(!this.state.contentIsVisible){
-                this.contentContainer.current.style.display='block';
-                this.setState({contentIsVisible:true})
-            }else{
-                this.contentContainer.current.style.display='none'
-                this.setState({contentIsVisible:false})
+        if(!this.props.noContent){
+            if(!this.state.onEdit){
+                if(!this.state.contentIsVisible){
+                    this.contentContainer.current.style.display='block';
+                    this.setState({contentIsVisible:true})
+                    this.setState({expandIconClass:'tree-expandIcon_opened'})
+                }else{
+                    this.contentContainer.current.style.display='none'
+                    this.setState({contentIsVisible:false})
+                    this.setState({expandIconClass:'tree-expandIcon'})
+                }
             }
         }
+        
     }
 }

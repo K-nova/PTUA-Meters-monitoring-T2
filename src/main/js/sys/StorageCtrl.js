@@ -4,7 +4,9 @@ export default class StorageCtrl{
     static #DEFAULT_PARAMETERS={
         isJSON:true, 
         versionCtrl: false,
-        version: '1'
+        version: '1',
+        storageTypeForcing: false,  //активировать принудительный переключение места хранениня данных: сессия/хранилище
+        session: true
     };
 
     //получить данные из хранилища
@@ -13,7 +15,10 @@ export default class StorageCtrl{
         let fullLocStorName=this.#locStorName(locStorName);
 
         //чтение из хранилищ
-        if(this.#SESSION){result.content=sessionStorage.getItem(fullLocStorName);}
+        let session=this.#SESSION
+        if(parameters.storageTypeForcing){session=parameters.session}
+
+        if(session){result.content=sessionStorage.getItem(fullLocStorName);}
         else{result.content=localStorage.getItem(fullLocStorName);}
 
         //обработка данных, если активен контроль версий
@@ -55,7 +60,10 @@ export default class StorageCtrl{
             dataToStorage=dataToStorage.content;
         }
         //запись в хранилище
-        if(this.#SESSION){sessionStorage.setItem(fullLocStorName,dataToStorage);}
+        let session=this.#SESSION
+        if(parameters.storageTypeForcing){session=parameters.session}
+
+        if(session){sessionStorage.setItem(fullLocStorName,dataToStorage);}
         else{localStorage.setItem(fullLocStorName,dataToStorage);}
 
     }
